@@ -11,10 +11,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'password': {'required': True},
         }
         model = UserModel
-        fields = ('urls', 'username', 'user_type')
+        fields = ('url', 'username', 'user_type')
 
 
 class LabelSerializer(serializers.ModelSerializer):
     class Meta:
         model = LabelModel
-        fields = ('id', 'label_name', 'parent_id')
+        fields = ('id', 'label_name', 'label_level')

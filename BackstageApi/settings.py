@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'Api.apps.ApiConfig',
+    'Api',
     "rest_framework",
 
 ]
@@ -86,7 +86,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
-        'PORT': 3306
+        'PORT': 3307
     }
 }
 
@@ -158,4 +158,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         'Api.authen.Authentication'
     ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'Api.permit.ManageUserPermission',  # 必须有
+    ),
 }

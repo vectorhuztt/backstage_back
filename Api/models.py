@@ -25,8 +25,14 @@ class UserToken(models.Model):
 
 
 class LabelModel(models.Model):
+    label_level_choice = (
+        (1, 'first_level'),
+        (2, 'second_level'),
+        (3, 'third_level')
+    )
     label_name = models.CharField(max_length=10)
     parent_id = models.IntegerField(default=0)
+    label_level = models.IntegerField(choices=label_level_choice, default=1)
 
     class Meta:
         db_table = 'label'

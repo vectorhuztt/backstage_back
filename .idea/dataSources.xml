@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="backstage@localhost" uuid="ffeac9d9-0475-4cac-84c4-66cfee9a5010">
+    <data-source source="LOCAL" name="backstage@localhost [2]" uuid="a5f21d12-f7f6-4a37-bc0f-1bfd271d24cf">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/backstage</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3307/backstage</jdbc-url>
     </data-source>
   </component>
 </project>

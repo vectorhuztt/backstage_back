@@ -1,9 +1,7 @@
 import uuid
 
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import exceptions
+from rest_framework.generics import ListAPIView, GenericAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -11,9 +9,10 @@ from Api.models import UserModel, UserToken
 from Api.serializers import UserSerializer
 
 
-class RegisterView(APIView):
+class RegisterUserView(APIView):
     serializer_class = UserSerializer
     authentication_classes = []
+    permission_classes = []
 
     def post(self, request):
         username = request._request.POST.get('username')
@@ -26,6 +25,9 @@ class RegisterView(APIView):
             return Response({'error': '用户名或密码是必填选项'})
         if not user_type:
             user_type = 1
+        else:
+            if user_type not in [1, 2, 3]:
+                return Response({'error': 'user_type仅限在1|2|3之间'})
         UserModel.objects.create(username=username, password=password, user_type=user_type)
         data = {
             'msg': '注册成功',
@@ -37,8 +39,9 @@ class RegisterView(APIView):
         return Response(data=data)
 
 
-class UserView(APIView):
+class LoginUserView(APIView):
     authentication_classes = []
+    permission_classes = []
 
     def post(self, request):
         data = {
@@ -63,7 +66,22 @@ class UserView(APIView):
         return Response(data=data)
 
 
-class LabelView(APIView):
+class ListUserView(ListAPIView):
+    """获取用户列表"""
+    serializer_class = UserSerializer
+    queryset = UserModel.objects.all()
+    authentication_classes = []
+    permission_classes = []
 
-    def get(self, request):
-        pass
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+class UserDetailView(RetrieveAPIView):
+    serializer_class = UserSerializer
+    queryset = UserModel.objects.all()
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request,  *args, **kwargs)
