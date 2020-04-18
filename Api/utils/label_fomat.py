@@ -1,4 +1,4 @@
-from Api.models import LabelModel
+from Api.models import LabelModel, ApiModel
 from Api.serializers import LabelSerializer
 
 
@@ -9,6 +9,11 @@ class GetLabelData:
             label = LabelModel.objects.get(pk=x.id)
             serializer = LabelSerializer(label)
             children_data = serializer.data
+            pid = children_data['pid']
+            api_model = ApiModel.objects.filter(pid=pid).first()
+            if api_model:
+                children_data['path'] = api_model.path
+            children_data.pop('pid')
             children_data['children'] = []
             data.append(children_data)
             children_labels = LabelModel.objects.filter(label_level=count, parent_id=x.id)

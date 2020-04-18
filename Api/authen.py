@@ -6,7 +6,13 @@ from Api.models import UserToken
 
 class Authentication(BaseAuthentication):
     def authenticate(self, request):
-        token = request._request.GET.get('token')
+        token = 0
+        token_param = request._request.GET.get('token')
+        token_auth = request._request.META.get('HTTP_AUTHORIZATION')
+        if token_param:
+            token = token_param
+        if token_auth:
+            token = token_auth
         token_obj = UserToken.objects.filter(token=token).first()
         if not token_obj:
             raise exceptions.AuthenticationFailed()

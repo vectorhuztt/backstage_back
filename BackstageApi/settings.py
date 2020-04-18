@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'Api',
     "rest_framework",
-
 ]
 
 MIDDLEWARE = [
@@ -156,9 +155,10 @@ CORS_ALLOW_HEADERS = (
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        'Api.authen.Authentication'
+        'Api.authen.Authentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES': (
-        'Api.permit.ManageUserPermission',  # 必须有
-    ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'Api.permit.ManageUserPermission',  # 必须有
+    # ),
 }
