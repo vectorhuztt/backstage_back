@@ -52,3 +52,12 @@ class LabelModel(models.Model):
 
     class Meta:
         db_table = 'label'
+
+
+class RoleModel(models.Model):
+    role_name = models.CharField(max_length=64)
+    label_ids = models.CharField(max_length=1024, null=True)
+    role_desc = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = 'role'

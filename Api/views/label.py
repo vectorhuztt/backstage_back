@@ -11,6 +11,7 @@ from Api.utils.label_fomat import GetLabelData
 class LabelView(APIView):
     def get(self, request):
         data_type = request._request.GET.get('type')
+        page = request._request.GET.get('page')
         if not data_type:
             data_type = 'tree'
         res = {
@@ -25,8 +26,11 @@ class LabelView(APIView):
                     GetLabelData().get_label_data(first_labels, data=data_list)
                 else:
                     labels = LabelModel.objects.all()
-                    pg = MyPageNumberPagination()
-                    page_roles = pg.paginate_queryset(queryset=labels, request=request, view=self)
+                    if page:
+                        pg = MyPageNumberPagination()
+                        page_roles = pg.paginate_queryset(queryset=labels, request=request, view=self)
+                    else:
+                        page_roles = labels
                     for x in page_roles:
                         ser = LabelSerializer(instance=x)
                         data = ser.data
@@ -47,3 +51,5 @@ class LabelView(APIView):
             res['code'] = 400
             res['msg'] = '获取标签失败'
         return Response(data=res)
+
+

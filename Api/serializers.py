@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from Api.models import UserModel, LabelModel, ApiModel, UserTypeModel
+from Api.models import UserModel, LabelModel, ApiModel, UserTypeModel, RoleModel
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,4 +32,9 @@ class LabelSerializer(serializers.ModelSerializer):
 class UserTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserTypeModel
+        fields = '__all__'
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RoleModel
         fields = '__all__'
